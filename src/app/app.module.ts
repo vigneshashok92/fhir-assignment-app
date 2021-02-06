@@ -6,18 +6,27 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { ApiService } from './services/api-service.service';
 import { TimerPipe } from './pipes/timer';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { QuestionnaireComponent } from './components/questionnaire/questionnaire.component';
+import { AppRoutingModule } from './app-routing.module';
+import { PatientTableComponent } from './components/patient-table/patient-table.component';
+import { QuestionnaireGroupComponent } from './components/questionnaire/questionnaire-group/questionnaire-group.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TimerPipe
+    TimerPipe,
+    QuestionnaireComponent,
+    PatientTableComponent,
+    QuestionnaireGroupComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [
     ApiService

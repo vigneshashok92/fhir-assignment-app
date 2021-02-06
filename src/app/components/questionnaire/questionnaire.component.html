@@ -1,0 +1,31 @@
+<section class="questionnaire-section">
+
+    <header>
+        <h1>Patient Questionnaire</h1>
+    </header>
+
+    <article class="questionnaire-container">
+        <form [formGroup]="qForm" (ngSubmit)="onSubmit()">
+
+            <span class="err-text" *ngIf="submitted && qForm.invalid">
+                Please enter valid answers
+            </span>
+
+            <app-questionnaire-group 
+                [gForm]="qForm" 
+                [groupData]="questionnaireData" 
+                [submitted]="submitted"
+            >
+            </app-questionnaire-group>
+
+            <button type="submit" class="btn btn-success">
+                Submit
+            </button>
+        </form>
+    </article>
+
+    <article class="response-container" *ngIf="questionnaireResponse">
+        <h3>Answers JSON:</h3>
+        <pre>{{questionnaireResponse}}</pre>
+    </article>
+</section>

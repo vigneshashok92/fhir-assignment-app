@@ -1,0 +1,35 @@
+<form [formGroup]="gForm">
+
+    <div class="form-group" *ngFor="let question of groupData">
+        <ng-container [ngSwitch]="question.type">
+            <ng-container *ngSwitchCase="'boolean'">
+                <label>{{question.linkId + '. ' + question.text}}</label>
+                <input type="checkbox" [formControlName]="question.linkId">
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'string'">
+                <label>{{question.linkId + '. ' + question.text}}</label>
+                <input type="text" [formControlName]="question.linkId"
+                [ngClass]="{'err-field': submitted && fCntrl[question.linkId].errors}">
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'date'">
+                <label>{{question.linkId + '. ' + question.text}}</label>
+                <input type="date" [formControlName]="question.linkId"
+                [ngClass]="{'err-field': submitted && fCntrl[question.linkId].errors}">
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'group'">
+                <label>{{question.linkId + '. ' + question.text + ':'}}</label>
+                <app-questionnaire-group 
+                    [gForm]="gForm.get(question.linkId)"
+                    [groupData]="question.item"
+                    [submitted]="submitted"
+                >
+                </app-questionnaire-group>
+            </ng-container>
+
+        </ng-container>
+    </div>
+
+</form>
