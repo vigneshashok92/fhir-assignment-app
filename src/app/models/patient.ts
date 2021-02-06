@@ -23,3 +23,27 @@ export const PatientTableColumns: any = {
     birthDate: "Birth Date",
     gender: "Gender"
 }
+
+export interface RawPatientData {
+    entry: Array<{
+        resource: {
+            birthDate: string;
+            id: string;
+            gender: string;
+            name: Array<{
+                family: string;
+                given: string[];
+                [key: string]: any;
+            }>;
+            address: Array<{
+                city: string;
+                postalCode: string;
+                line: string[];
+                state: string;
+                [key: string]: any;
+            }>;
+        };
+        [key: string]: any;
+    }>;
+    [key: string]: any;
+}

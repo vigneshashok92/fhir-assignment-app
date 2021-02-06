@@ -1,6 +1,6 @@
 import { KeyValue } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { PatientData, PatientSearch, PatientTableColumns } from 'src/app/models/patient';
+import { PatientData, PatientSearch, PatientTableColumns, RawPatientData } from 'src/app/models/patient';
 import { ApiService } from 'src/app/services/api-service.service';
 
 @Component({
@@ -49,7 +49,7 @@ export class PatientTableComponent implements OnInit {
 
     // this.apiService.getPatientsByBirthDate('1960-01-01', '1966-01-01').subscribe(
     this.apiService.getPatients(request).subscribe(
-      (data: any) => {
+      (data: RawPatientData) => {
 
         this.apiTime = new Date().getTime() - startTimer;
 
@@ -77,7 +77,7 @@ export class PatientTableComponent implements OnInit {
     return 0;
   }
 
-  private processResponse(rawList: any): Array<PatientData> {
+  private processResponse(rawList: RawPatientData): Array<PatientData> {
     const patients: PatientData[] = [];
 
     if (rawList?.entry && rawList?.entry.length) {
@@ -135,7 +135,7 @@ export class PatientTableComponent implements OnInit {
     return addrTxt;
   }
 
-  originalOrder = (a: KeyValue<number, string>, b: KeyValue<number, string>): number => {
+  public originalOrder = (): number => {
     return 0;
   }
 

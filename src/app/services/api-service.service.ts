@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { query } from '@angular/animations';
 import { KeyValue } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class ApiService {
     private httpClient: HttpClient
   ) { }
 
-  getPatients(searchParams?: Array<KeyValue<string, string>>) {
+  getPatients(searchParams?: Array<KeyValue<string, string>>): Observable<Object> {
 
     if (searchParams) {
       return this.getPatientsByParams(searchParams);
@@ -23,7 +24,7 @@ export class ApiService {
       { headers: this.getHeaders() });
   }
 
-  getPatientsByBirthDate(minDate?: string, maxDate?: string) {
+  getPatientsByBirthDate(minDate?: string, maxDate?: string): Observable<Object> {
 
     let queryParams: HttpParams = new HttpParams();
     queryParams = queryParams.append('birthdate', 'gt' + minDate);
@@ -37,7 +38,7 @@ export class ApiService {
       });
   }
 
-  getPatientsByParams(searchParams: Array<KeyValue<string, string>>) {
+  getPatientsByParams(searchParams: Array<KeyValue<string, string>>): Observable<Object> {
 
     let queryParams: HttpParams = new HttpParams();
     searchParams.forEach((keyValue: KeyValue<string, string>) => {

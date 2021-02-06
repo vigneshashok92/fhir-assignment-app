@@ -19,7 +19,6 @@ export class QuestionnaireComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm(this.qForm, this.questionnaireData);
-    console.log(this.qForm);
   }
 
   public initializeForm(formGroup: FormGroup, data: Questionnaire[]): void {
