@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { query } from '@angular/animations';
+import { KeyValue } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +13,42 @@ export class ApiService {
     private httpClient: HttpClient
   ) { }
 
-  getPatients() {
+  getPatients(searchParams?: Array<KeyValue<string, string>>) {
+
+    if (searchParams) {
+      return this.getPatientsByParams(searchParams);
+    }
+    
     return this.httpClient.get(environment.queryURI + '/Patient',
       { headers: this.getHeaders() });
+  }
+
+  getPatientsByBirthDate(minDate?: string, maxDate?: string) {
+
+    let queryParams: HttpParams = new HttpParams();
+    queryParams = queryParams.append('birthdate', 'gt' + minDate);
+    queryParams = queryParams.append('birthdate', 'lt' + maxDate);
+
+
+    return this.httpClient.get(environment.queryURI + '/Patient',
+      {
+        headers: this.getHeaders(),
+        params: queryParams
+      });
+  }
+
+  getPatientsByParams(searchParams: Array<KeyValue<string, string>>) {
+
+    let queryParams: HttpParams = new HttpParams();
+    searchParams.forEach((keyValue: KeyValue<string, string>) => {
+      queryParams = queryParams.append(keyValue.key, keyValue.value);
+    });
+
+    return this.httpClient.get(environment.queryURI + '/Patient',
+      {
+        headers: this.getHeaders(),
+        params: queryParams
+      });
   }
 
   private getHeaders(): HttpHeaders {

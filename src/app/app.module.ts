@@ -5,15 +5,19 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { ApiService } from './services/api-service.service';
+import { TimerPipe } from './pipes/timer';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TimerPipe
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   providers: [
     ApiService
